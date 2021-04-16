@@ -1,5 +1,5 @@
-#doctor-appointment-booking
-(reactjs,nodejs,MongoDB,express)
+#Doctor-appointment-booking
+***(reactjs,nodejs,MongoDB,express)***
 >In client, that means the front-end is managed by react.js.
 >In backend, Express.js is an application framework that works for Node.js while Express.js is running as an internet facing web server. Express.js is very powerful and it can manage HTTP request as an GET and POST requests.
 
@@ -29,9 +29,9 @@ Server runs on http://localhost:5000 and client on http://localhost:3000
 
 
 Server would be up at http://localhost:5000
-This code will help us to get connect with the backend to our front-end having this code in our server.js file.
+>This code will help us to get connect with the backend to our front-end having this code in our server.js file.
 
-
+```
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
     app.get('*', (req, res) => {
@@ -46,7 +46,7 @@ app.listen(PORT, () =>{
     console.log('Server is running on port', PORT)
 })
 
-
+```
 ##Api outline for creating the base for our Digital telehealtg clinic
 ```
 > project
