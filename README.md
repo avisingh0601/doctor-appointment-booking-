@@ -127,16 +127,18 @@ routes
     -appoinmentRouter.js
     -userRouter.js
 ```
->In the server.js file we can use app.use() function it is used to mount the specified middleware function  at the path which is being specified.it is mostly used to set up middleware for application.
+In the server.js file we can use app.use() function it is used to mount the specified middleware function  at the path which is being specified.it is mostly used to set up middleware for application.
 // Routes
+```
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/categoryRouter'))
 app.use('/api', require('./routes/upload'))
 app.use('/api', require('./routes/doctorRouter ))
 app.use('/api', require('./routes/appoinmentRouter))
+```
 
-
-// Connect to mongodb
+>// Connect to mongodb
+```
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {
     useCreateIndex: true,
@@ -147,9 +149,10 @@ mongoose.connect(URI, {
     if(err) throw err;
     console.log('Connected to MongoDB')
 })
-
+```
 In the Router file  we use  (post and get) method  to  server to request data from the specified resource or to send data to a server to create /update a resource.
 //userRouter.js file
+```
 const router = require('express').Router()
 const userCtrl = require('../controllers/userCtrl')
 const auth = require('../middleware/auth')
@@ -167,7 +170,7 @@ router.get('/infor', auth,  userCtrl.getUser)
 router.patch('/bookappoinment',auth,userCtrl.bookappoinment)
 
 module.exports = router
-
+```
 
 ##In the model file at the database schema should be present in such way
 //userModel.js file
