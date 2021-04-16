@@ -1,25 +1,20 @@
-# doctor-appointment-booking
+#doctor-appointment-booking
 (reactjs,nodejs,MongoDB,express)
-MongoDB — MongoDB is an open source, cross-platform and NoSQL database program. Basically it is a document oriented database.
-Express(.js) — Express.js is a web framework for Node.js. Its role is to act as the web framework running in the Node.js server. It has the ability to manage HTTP requests and responses.
-React(.js) — It also known as Ract.js and REACTJS. This is a set of JavaScript libraries. This can be used to create more interactive user interfaces.
-Node(.js) — Node.js is an open source and cross-platform runtime environment where can run JavaScript as the server.
-
-In client, that means the front-end is managed by react.js.
-In backend, Express.js is an application framework that works for Node.js while Express.js is running as an internet facing web server. Express.js is very powerful and it can manage HTTP request as an GET and POST requests.
+>In client, that means the front-end is managed by react.js.
+>In backend, Express.js is an application framework that works for Node.js while Express.js is running as an internet facing web server. Express.js is very powerful and it can manage HTTP request as an GET and POST requests.
 
 
-npm install express mongoose cors dotenv
-here ‘cors’ that stands for ‘Cross-Origin Resource Sharing’ and it provides an express middleware that can enable cors with different options, so by this package we can easily access some data from a outside of our server.
-npm install -g nodemon
+###npm install express mongoose cors dotenv
+>Here ‘cors’ that stands for ‘Cross-Origin Resource Sharing’ and it provides an express middleware that can enable cors with different options, so by this package we can easily access some data from a outside of our server.
+###npm install -g nodemon
 this package makes our development easier. It is a tool that helps to make node.js base applications by automatically restarting your node application when it detect any changed files in the directory.
 
 Afetr this we can create the server files inside the backend folder, to do that create a file named as “server.js”
 then make an another file named “.env”. In this you have to enter the MongoDB environment variables. to get that you have to go to mongoDB. Atlas and get the connection string of the database cluster that you created.
 
-Install dependencies for server
-npm install
-Install dependencies for client
+###Install dependencies for server
+###npm install
+###Install dependencies for client
 cd client ---> npm install
 Connect to your mongodb and add info in .env
 Run the client & server with concurrently
@@ -52,7 +47,8 @@ app.listen(PORT, () =>{
 })
 
 
-Api outline for creating the base for our Digital telehealtg clinic
+##Api outline for creating the base for our Digital telehealtg clinic
+```
 > project
    |
    >client
@@ -130,8 +126,8 @@ routes
     -upload.js
     -appoinmentRouter.js
     -userRouter.js
-
-In the server.js file we can use app.use() function it is used to mount the specified middleware function  at the path which is being specified.it is mostly used to set up middleware for application.
+```
+>In the server.js file we can use app.use() function it is used to mount the specified middleware function  at the path which is being specified.it is mostly used to set up middleware for application.
 // Routes
 app.use('/user', require('./routes/userRouter'))
 app.use('/api', require('./routes/categoryRouter'))
@@ -173,9 +169,9 @@ router.patch('/bookappoinment',auth,userCtrl.bookappoinment)
 module.exports = router
 
 
-In the model file at the database schema should be present in such way
+##In the model file at the database schema should be present in such way
 //userModel.js file
-
+```
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
@@ -208,10 +204,10 @@ const userSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Users', userSchema)
-
+```
 
 //doctorModel.js
-
+```
 database schema for doctor
 
 const mongoose = require('mongoose')
@@ -265,8 +261,9 @@ const productSchema = new mongoose.Schema({
 
 module.exports = mongoose.model("Doctor",doctorSchema)
 
-
-in the controllers file
+```
+##in the controllers file
+```
 const Users = require('../models/userModel')
 const Payments = require('../models/paymentModel')
 const bcrypt = require('bcrypt')
@@ -389,7 +386,6 @@ const userCtrl = {
     }
  }
 
-
 const createAccessToken = (user) =>{
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7d'})
 }
@@ -398,3 +394,4 @@ const createRefreshToken = (user) =>{
 }
 
 module.exports = userCtrl
+```
