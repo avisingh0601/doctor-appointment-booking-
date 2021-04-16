@@ -1,4 +1,4 @@
-# doctor-appointment-booking-
+# doctor-appointment-booking
 (reactjs,nodejs,MongoDB,express)
 MongoDB — MongoDB is an open source, cross-platform and NoSQL database program. Basically it is a document oriented database.
 Express(.js) — Express.js is a web framework for Node.js. Its role is to act as the web framework running in the Node.js server. It has the ability to manage HTTP requests and responses.
