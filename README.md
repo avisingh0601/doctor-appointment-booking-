@@ -196,11 +196,8 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    bookappoinment:{
-        "startTime":"10:00",
-        "endTime":"10:30",
-        "booking id:"",
-        "status":"booleen"
+    description:{
+    type:string
     }
 }, {
     timestamps: true
@@ -304,9 +301,9 @@ bookingSchema.path('bookingStart').validate(function(value) {
     return false
   }
   
-  // Locate the room document containing the bookings
-  return Doctoe.findById(doctorId)
-    .then(room => {
+  // Locate the doctor document containing the bookings
+  return Doctor.findById(doctorId)
+    .then(doctor => {
       // Loop through each existing booking and return false if there is a clash
       return doctor.bookings.every(booking => {
         
@@ -478,7 +475,7 @@ Now, when we add a new booking, we can use some date logic (easier with timestam
 
 var newStartTime = someTimestamp;
 var newEndTime = someOtherTimestamp;
-var newClientName = 'John Doe';
+var newClientName = '';
 
 var conflictingBookings = await Booking.find()
     .where('startTime').lt(newEndTime)
