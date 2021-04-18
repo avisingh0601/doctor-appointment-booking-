@@ -4,31 +4,79 @@
 >In backend, Express.js is an application framework that works for Node.js while Express.js is running as an internet facing web server. Express.js is very powerful and it can manage HTTP request as an GET and POST requests.
 
 
-###npm install express mongoose cors dotenv
+`npm install express mongoose cors dotenv`
 >Here ‘cors’ that stands for ‘Cross-Origin Resource Sharing’ and it provides an express middleware that can enable cors with different options, so by this package we can easily access some data from a outside of our server.
-###npm install -g nodemon
+###`npm install -g nodemon`
 this package makes our development easier. It is a tool that helps to make node.js base applications by automatically restarting your node application when it detect any changed files in the directory.
 
-Afetr this we can create the server files inside the backend folder, to do that create a file named as “server.js”
+After this we can create the server files inside the backend folder, to do that create a file named as “server.js”
 then make an another file named “.env”. In this you have to enter the MongoDB environment variables. to get that you have to go to mongoDB. Atlas and get the connection string of the database cluster that you created.
+#Prerequisites
+##Back-end:
+###MongoDB
+###Express
+###Node.js
+```
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.25.1",
+    "concurrently": "^6.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "mongoose": "^4.13.9",
 
-###Install dependencies for server
-###npm install
-###Install dependencies for client
-cd client ---> npm install
-Connect to your mongodb and add info in .env
-Run the client & server with concurrently
-npm run dev
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.14.10",
+    "now": "^9.2.7",
+    "prettier": "^1.10.2"
+  }
+  ```
+#Front-end:
 
-Run the Express server only
-npm run server
-
-Run the React client only
-npm run client
-Server runs on http://localhost:5000 and client on http://localhost:3000
-
-
-Server would be up at http://localhost:5000
+###React.js
+  ```
+  "dependencies": {
+    "axios": "^0.21 .1",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "normalize.css": "^7.0.0",
+    "query-string": "^5.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-paypal-express-checkout": "^1.0.5",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3"
+    "react-datetime": "^2.11.1",
+    "react-dom": "^16.2.0",
+    "react-modal": "^3.1.11",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17"
+  },
+    "devDependencies": {
+    "autoprefixer-stylus": "^0.14.0",
+    "concurrently": "^3.5.1",
+    "stylus": "^0.54.5"
+  }
+  ```
+  
 >This code will help us to get connect with the backend to our front-end having this code in our server.js file.
 
 ```
@@ -459,7 +507,7 @@ const createRefreshToken = (user) =>{
 
 module.exports = userCtrl
 ```
-or we can do it as
+Or we can do it as booking system by this method also.
 ```
 const bookingSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -499,7 +547,7 @@ if (conflictingBookings.length === 0) {
         console.log(`There is already a booking from ${convertToString(booking.startTime)} to ${convertToString(booking.endTime)} with ${booking.clientName} !`);
     });
 
-    // convertToString() being your custom function to convert timestamps to readable dates (not discussed here).
+    // convertToString() being your custom function to convert timestamps to readable dates.
     // we log all conflicting preexisting bookings to the console
 
 }
