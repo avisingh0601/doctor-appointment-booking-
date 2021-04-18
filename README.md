@@ -265,6 +265,70 @@ const productSchema = new mongoose.Schema({
 module.exports = mongoose.model("Doctor",doctorSchema)
 
 ```
+##in model appoinment.js file
+```
+const mongoose = require('mongoose')
+const moment = require('moment')
+
+
+const bookingSchema = new Schema({
+  _bookingId: Schema.Types.ObjectId,
+  user: { type: Schema.ObjectId, ref: 'User' },
+  bookingStart: Date,
+  bookingEnd: Date,
+  startHour: Number,
+  duration: Number,
+  recurring: [],
+  purpose: { type: String, required: true },
+  doctorId: { type: Schema.ObjectId, ref: 'Doctor' }
+})
+
+// Validation to ensure a doctor cannot be double-booked
+bookingSchema.path('bookingStart').validate(function(value) {
+  // Extract the doctor Id from the query object
+  let doctorId = this.doctorId
+  
+  // Convert booking Date objects into a number value
+  let newBookingStart = value.getTime()
+  let newBookingEnd = this.bookingEnd.getTime()
+  
+  // Function to check for booking clash
+  let clashesWithExisting = (existingBookingStart, existingBookingEnd, newBookingStart, newBookingEnd) => {
+    if (newBookingStart >= existingBookingStart && newBookingStart < existingBookingEnd || 
+      existingBookingStart >= newBookingStart && existingBookingStart < newBookingEnd) {
+      
+      throw new Error(
+        `Booking could not be saved. There is a clash with an existing booking from ${moment(existingBookingStart).format('HH:mm')} to ${moment(existingBookingEnd).format('HH:mm on LL')}`
+      )
+    }
+    return false
+  }
+  
+  // Locate the room document containing the bookings
+  return Doctoe.findById(doctorId)
+    .then(room => {
+      // Loop through each existing booking and return false if there is a clash
+      return doctor.bookings.every(booking => {
+        
+        // Convert existing booking Date objects into number values
+        let existingBookingStart = new Date(booking.bookingStart).getTime()
+        let existingBookingEnd = new Date(booking.bookingEnd).getTime()
+
+        // Check whether there is a clash between the new booking and the existing booking
+        return !clashesWithExisting(
+          existingBookingStart, 
+          existingBookingEnd, 
+          newBookingStart, 
+          newBookingEnd
+        )
+      })
+    })
+}, `{REASON}`)
+
+
+module.exports = mongoose.model("Appoinment",appoinmentSchema)
+
+```
 ##in the controllers file
 ```
 const Users = require('../models/userModel')
@@ -397,4 +461,49 @@ const createRefreshToken = (user) =>{
 }
 
 module.exports = userCtrl
+```
+or we can do it as
+```
+const bookingSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    startTime: {type:Number, required:true},
+    endTime: {type:Number, required:true},
+    clientName: {type:String, required:true}
+});
+
+const Booking = mongoose.model('Booking', bookingSchema);
+I would store startTime and endTime as timestamps in milliseconds, but that is a matter of choice. You can go all the way down to storing Y / M / D / H / m in separate fields. 
+
+Now, when we add a new booking, we can use some date logic (easier with timestamps) to check if there is a conflict with a preexisting booking :
+
+var newStartTime = someTimestamp;
+var newEndTime = someOtherTimestamp;
+var newClientName = 'John Doe';
+
+var conflictingBookings = await Booking.find()
+    .where('startTime').lt(newEndTime)
+    .where('endTime').gt(newStartTime)
+    .exec();
+
+// This selects all preexisting bookings which have both :
+// ---> startTime < newEndTime
+// ---> endTime > newStartTime
+// You can check yourself : I think it handles all possible overlaps !
+
+// Now, conflictingBookings is an array containing all documents in conflict.
+// You can tell your barber the problems :
+
+if (conflictingBookings.length === 0) {
+    // everything ok, you can book it
+    // here you add the new booking to your DB...
+} else {
+
+    conflictingBookings.forEach( booking => {
+        console.log(`There is already a booking from ${convertToString(booking.startTime)} to ${convertToString(booking.endTime)} with ${booking.clientName} !`);
+    });
+
+    // convertToString() being your custom function to convert timestamps to readable dates (not discussed here).
+    // we log all conflicting preexisting bookings to the console
+
+}
 ```
