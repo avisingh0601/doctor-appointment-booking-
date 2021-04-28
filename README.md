@@ -536,7 +536,7 @@ var conflictingBookings = await Booking.find()
 // You can check yourself : I think it handles all possible overlaps !
 
 // Now, conflictingBookings is an array containing all documents in conflict.
-// You can tell your barber the problems :
+
 
 if (conflictingBookings.length === 0) {
     // everything ok, you can book it
